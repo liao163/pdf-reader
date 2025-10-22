@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>线性代数基础</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="auth-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="header-left">
+                    <h1>线性代数基础</h1>
+                    <p class="subtitle">探索数学之美，掌握线性代数精髓</p>
+                </div>
+                <div class="header-right">
+                    <div class="user-info" id="userInfo" style="display: none;">
+                        <span class="welcome-text">欢迎，<span id="username"></span></span>
+                        <button class="logout-btn" onclick="authSystem.logout()">
+                            <i class="fas fa-sign-out-alt"></i>
+                            退出登录
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="preface">
+            <h2>前言</h2>
+            <p>欢迎来到《线性代数基础》！这本电子书是为对线性代数感兴趣的你精心准备的，旨在帮助你掌握线性代数的基础知识和应用。无论你是完全的数学新手，还是已经有一些数学基础，这本书都将引导你一步步进入线性代数的精彩世界。</p>
+            
+            <h3>为什么学习线性代数？</h3>
+            <p>在这个数据与计算的时代，线性代数已经渗透到我们生活的方方面面：从计算机图形学，到机器学习算法，再到量子力学。掌握线性代数技能不仅能帮助你理解这个世界是如何运作的，还能为你未来的学习和职业发展打下坚实的基础。</p>
+            <p>通过学习线性代数，你将能够：</p>
+            <ul>
+                <li>理解和操作向量与矩阵</li>
+                <li>解决线性方程组</li>
+                <li>掌握特征值和特征向量的概念</li>
+                <li>应用线性变换解决实际问题</li>
+                <li>为深入学习机器学习和数据科学打下基础</li>
+            </ul>
+        </section>
+
+        <section id="book-structure">
+            <h2>目录</h2>
+            <p>下列目录可直接跳转到 PDF 相应页面：</p>
+            <div class="toc">
+                <ul>
+                    <li><a class="toc-link" href="pdfs/Chap1_1.pdf#page=1" data-page="1" data-pdf="pdfs/Chap1_1.pdf">1. 行 列 式 (Determinant)</a></li>
+                    <li><a class="toc-link" href="pdfs/Chap2_Matrix.pdf#page=1" data-page="1" data-pdf="pdfs/Chap2_Matrix.pdf">2. 矩 阵 (Matrix)</a></li>
+                    <li><a class="toc-link" href="pdfs/Chap1_1.pdf#page=1" data-page="1" data-pdf="pdfs/Chap1_1.pdf">3. 向量的概念与线性运算</a></li>
+                    <li><a class="toc-link" href="pdfs/Chap1_1.pdf#page=1" data-page="1" data-pdf="pdfs/Chap1_1.pdf">4. 线性方程组的表示法</a></li>
+                    <li><a class="toc-link" href="pdfs/Chap1_1.pdf#page=1" data-page="1" data-pdf="pdfs/Chap1_1.pdf">5. 特征值和特征向量的定义与关系</a></li>
+                    <li><a class="toc-link" href="pdfs/Chap1_1.pdf#page=1" data-page="1" data-pdf="pdfs/Chap1_1.pdf">6. 二次型及矩阵表示</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 新增：教材板块 -->
+        <section id="materials">
+            <h2>教材</h2>
+            <ul>
+                <li>《线性代数(第四版)》 - 刘先忠、杨明编著，高等教育出版社，2019年出版</li>
+                <li>《线性代数同步辅导》 - 华中科技大学线性代数课程组编，刘先忠、杨明主编，华中科技大学出版社出版</li>
+                <li>《线性代数练习册》 - 华中科技大学线性代数课程组编，华中科技大学出版社出版（适用于线上线下作业）</li>
+            </ul>
+        </section>
+
+        <!-- 新增：推荐参考资料（国内/国外） -->
+        <section id="references">
+            <h2>推荐参考资料</h2>
+            <h3>国内参考资料</h3>
+            <ul>
+                <li>《工程数学--线性代数》同济大学数学系编，高等教育出版社</li>
+                <li>考研数学必备参考书，内容紧凑，逻辑清晰，紧扣考研大纲，习题经典。(稍显枯燥，缺少直观解释和应用介绍)</li>
+                <li>《线性代数(第二版)》，居余马等编，清华大学出版社，2013</li>
+                <li>相较于同济版教材，讲解更为细致，可读性强，注重理论体系</li>
+                <li>《线性代数》，齐民友主编(武汉大学)，高等教育出版社</li>
+                <li>介绍概念的来源和背后的数学思想，富有启发性</li>
+            </ul>
+
+            <h3>国外参考资料</h3>
+            <ul>
+                <li>Gilbert Strang《Introduction to Linear Algebra》</li>
+                <li>世界级经典，在 B站上流传着他的传说，有兴趣的同学自行赏析</li>
+                <li>David C. Lay《Linear Algebra and Its Applications》</li>
+                <li>写作清晰，包含大量实例和应用场景（如计算机图形学、概率统计等）有中译本（沈复兴等译）</li>
+                <li>Sheldon Axler《Linear Algebra Done Right》</li>
+                <li>与传统教材的切入点不同，避开行列式，从向量空间和线性映射的角度构建整个理论系统，侧重于理论。有中译版本(杜现昆等)</li>
+            </ul>
+        </section>
+
+        <!-- 新增：进阶阅读板块 -->
+        <section id="advanced-reading">
+            <h2>进阶阅读</h2>
+            <ul>
+                <li>《高等线性代数》，张贤科，高等教育出版社</li>
+                <li>《高等代数》，丘维声，高等教育出版社</li>
+                <li>《高等代数》，王萼芳，石生明，高等教育出版社</li>
+                <li>《高等代数简明教程(第三版)》，蓝以中，北京大学出版社</li>
+            </ul>
+        </section>
+
+        
+
+        
+
+        
+
+
+        
+
+        
+
+        <!-- 章节内容占位符 -->
+        <section id="chapter1" class="chapter">
+            <p>本章内容可通过下方PDF预览：</p>
+            <div class="page-navigation">
+                <label for="pageInput1">跳转到页码：</label>
+                <input type="number" id="pageInput1" min="1" placeholder="输入页码" class="page-input">
+                <button onclick="jumpToPage('pdfViewer1', 'pageInput1')" class="jump-btn">跳转</button>
+            </div>
+            <div class="pdf-wrap">
+                <iframe id="pdfViewer1" src="pdfs/Chap1_1.pdf#toolbar=0&navpanes=0&scrollbar=1" class="pdf-viewer" title="PDF 预览"></iframe>
+                <!-- <p class="pdf-fallback">若预览无法显示，请<a href="pdfs/Chap1_1.pdf" target="_blank" rel="noopener">点击这里在新窗口打开</a>。</p> -->
+            </div>
+            <!-- 翻页控制器 -->
+            <div class="pdf-controls">
+                <button onclick="previousPage('pdfViewer1')" class="page-btn prev-btn" id="prevBtn1">
+                    <i class="fas fa-chevron-left"></i>
+                    <span>上一页</span>
+                </button>
+                <div class="page-info">
+                    <span class="current-page" id="currentPage1">1</span>
+                    <span class="page-separator">/</span>
+                    <span class="total-pages" id="totalPages1">--</span>
+                </div>
+                <button onclick="nextPage('pdfViewer1')" class="page-btn next-btn" id="nextBtn1">
+                    <span>下一页</span>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <a href="#book-structure" class="back-to-toc">返回目录</a>
+        </section>
+
+        <section id="chapter2" class="chapter">
+            <h2>第二章：矩阵与线性变换</h2>
+            <p>本章内容可通过下方PDF预览：</p>
+            <div class="page-navigation">
+                <label for="pageInput2">跳转到页码：</label>
+                <input type="number" id="pageInput2" min="1" placeholder="输入页码" class="page-input">
+                <button onclick="jumpToPage('pdfViewer2', 'pageInput2')" class="jump-btn">跳转</button>
+            </div>
+            <div class="pdf-wrap">
+                <iframe id="pdfViewer2" src="pdfs/Chap2_Matrix.pdf#toolbar=0&navpanes=0&scrollbar=1" class="pdf-viewer" title="PDF 预览"></iframe>
+            </div>
+            <!-- 翻页控制器 -->
+            <div class="pdf-controls">
+                <button onclick="previousPage('pdfViewer2')" class="page-btn prev-btn" id="prevBtn2">
+                    <i class="fas fa-chevron-left"></i>
+                    <span>上一页</span>
+                </button>
+                <div class="page-info">
+                    <span class="current-page" id="currentPage2">1</span>
+                    <span class="page-separator">/</span>
+                    <span class="total-pages" id="totalPages2">--</span>
+                </div>
+                <button onclick="nextPage('pdfViewer2')" class="page-btn next-btn" id="nextBtn2">
+                    <span>下一页</span>
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <a href="#book-structure" class="back-to-toc">返回目录</a>
+        </section>
+
+        <section id="chapter3" class="chapter">
+            <h2>第三章：行列式与逆矩阵</h2>
+            <p>本章内容正在编写中...</p>
+            <a href="#book-structure" class="back-to-toc">返回目录</a>
+        </section>
+
+        <section id="chapter4" class="chapter">
+            <h2>第四章：特征值与特征向量</h2>
+            <p>本章内容正在编写中...</p>
+            <a href="#book-structure" class="back-to-toc">返回目录</a>
+        </section>
+
+        <section id="chapter5" class="chapter">
+            <h2>第五章：线性代数应用</h2>
+            <p>本章内容正在编写中...</p>
+            <a href="#book-structure" class="back-to-toc">返回目录</a>
+        </section>
+
+        <!-- 将课程应用场景移动到页面最底部（章节之后、页脚之前） -->
+        <section id="applications">
+            <h2>课程应用场景</h2>
+            <p>通过本书学习的线性代数知识，你将能够参与到以下精彩的应用场景中：</p>
+            
+            <h3>数据分析与机器学习</h3>
+            <p>在数据科学课程中，你将学习如何应用线性代数知识进行数据分析和机器学习。你将能够：</p>
+            <ul>
+                <li>使用主成分分析（PCA）进行数据降维</li>
+                <li>理解机器学习算法背后的数学原理</li>
+                <li>实现基于线性代数的预测模型</li>
+                <li>掌握数据处理和特征提取的基本技能</li>
+            </ul>
+            
+            <h3>计算机图形学</h3>
+            <p>在计算机图形学课程中，你将有机会使用线性代数知识进行图像处理和3D建模。这个实践项目将让你：</p>
+            <ul>
+                <li>学习如何使用矩阵进行图像变换</li>
+                <li>实现3D物体的旋转、缩放和平移</li>
+                <li>应用线性代数算法进行图像处理和分析</li>
+                <li>将数学知识与实际工程应用相结合</li>
+            </ul>
+            <p>这些应用场景不仅能让你体验线性代数在实际项目中的强大功能，还能帮助你将抽象的数学概念转化为有趣且实用的技能。</p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 线性代数基础. 保留所有权利。</p>
+        </div>
+    </footer>
+    <script>
+      (function(){
+        const defaultPdfPath = 'pdfs/Chap1_1.pdf';
+        const viewer = document.getElementById('pdfViewer1');
+        const chapter = document.getElementById('chapter1');
+        
+        document.querySelectorAll('.toc-link[data-page]').forEach(function(link){
+          link.addEventListener('click', function(ev){
+            ev.preventDefault();
+            const page = this.getAttribute('data-page');
+            const pdfPath = this.getAttribute('data-pdf') || defaultPdfPath;
+            
+            // 确保章节可见
+            location.hash = '#chapter1';
+            
+            if (viewer && page) {
+              // 使用PDF URL参数：隐藏工具栏但保留导航功能
+              const targetUrl = pdfPath + '#page=' + page + '&toolbar=0&navpanes=0&scrollbar=1';
+              
+              // 使用延迟更新确保页面滚动完成后再更新PDF
+              setTimeout(function() {
+                viewer.setAttribute('src', targetUrl + '&t=' + Date.now());
+              }, 100);
+            }
+            
+            if (chapter) {
+              chapter.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          });
+        });
+        
+        // 禁用iframe内的右键菜单（尽力而为）
+        viewer.addEventListener('load', function() {
+          try {
+            const iframeDoc = viewer.contentDocument || viewer.contentWindow.document;
+            iframeDoc.addEventListener('contextmenu', function(e) {
+              e.preventDefault();
+            });
+          } catch(e) {
+            // 跨域限制，无法访问iframe内容
+            console.log('无法禁用PDF内部右键菜单（跨域限制）');
+          }
+        });
+      })();
+      
+      // 页码跳转功能
+      function jumpToPage(viewerId, inputId) {
+        console.log('jumpToPage函数被调用，参数：', viewerId, inputId);
+        
+        const viewer = document.getElementById(viewerId);
+        const input = document.getElementById(inputId);
+        
+        console.log('找到的元素：', viewer, input);
+        
+        if (!viewer || !input) {
+          alert('页面元素未找到');
+          console.error('元素未找到：viewer=', viewer, 'input=', input);
+          return;
+        }
+        
+        const pageNumber = parseInt(input.value);
+        console.log('输入的页码：', input.value, '解析后：', pageNumber);
+        
+        if (isNaN(pageNumber) || pageNumber < 1) {
+          alert('请输入有效的页码（大于0的整数）');
+          return;
+        }
+        
+        // 获取当前PDF的基础URL（去除现有的页码参数）
+        let currentSrc = viewer.getAttribute('src');
+        let basePdfUrl = currentSrc.split('#')[0];
+        
+        console.log('当前PDF源：', currentSrc);
+        console.log('基础URL：', basePdfUrl);
+        
+        // 构建新的PDF URL，包含页码参数
+        const newUrl = basePdfUrl + '#page=' + pageNumber + '&toolbar=0&navpanes=0&scrollbar=1';
+        
+        console.log('新的URL：', newUrl);
+        
+        // 先清空src，然后重新设置，确保PDF重新加载
+        viewer.src = '';
+        
+        // 使用setTimeout确保清空操作完成后再设置新URL
+        setTimeout(function() {
+          viewer.src = newUrl + '&t=' + Date.now();
+          console.log('PDF已重新加载到第 ' + pageNumber + ' 页');
+          
+          // 更新页码显示
+          updatePageDisplay(viewerId, pageNumber);
+        }, 100);
+        
+        // 清空输入框
+        input.value = '';
+        
+        // 提示用户
+        console.log('已跳转到第 ' + pageNumber + ' 页');
+        
+        // 滚动到PDF查看器位置，确保用户能看到变化
+        viewer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      
+      // PDF翻页管理器
+      const pdfPageManager = {
+        // 存储每个PDF的当前页码和总页数
+        pdfData: {
+          'pdfViewer1': { currentPage: 1, totalPages: null, basePdfUrl: 'pdfs/Chap1_1.pdf' },
+          'pdfViewer2': { currentPage: 1, totalPages: null, basePdfUrl: 'pdfs/Chap2_Matrix.pdf' }
+        },
+        
+        // 初始化PDF页码信息
+        init: function() {
+          // 根据实际PDF页数设置
+          // Chap1_1.pdf 实际包含 93 页内容
+          this.pdfData['pdfViewer1'].totalPages = 93;
+          // Chap2_Matrix.pdf 实际包含 100 页内容
+          this.pdfData['pdfViewer2'].totalPages = 100;
+          
+          // 更新页码显示
+          this.updateAllPageDisplays();
+        },
+        
+        // 手动设置PDF总页数的方法
+        setPdfTotalPages: function(viewerId, totalPages) {
+          if (this.pdfData[viewerId]) {
+            this.pdfData[viewerId].totalPages = totalPages;
+            this.updatePageDisplay(viewerId);
+            console.log(`已设置 ${viewerId} 的总页数为: ${totalPages}`);
+          }
+        },
+        
+        // 更新所有PDF的页码显示
+        updateAllPageDisplays: function() {
+          for (let viewerId in this.pdfData) {
+            this.updatePageDisplay(viewerId);
+          }
+        },
+        
+        // 更新指定PDF的页码显示
+        updatePageDisplay: function(viewerId) {
+          const data = this.pdfData[viewerId];
+          if (!data) return;
+          
+          const viewerNum = viewerId.replace('pdfViewer', '');
+          const currentPageEl = document.getElementById('currentPage' + viewerNum);
+          const totalPagesEl = document.getElementById('totalPages' + viewerNum);
+          const prevBtn = document.getElementById('prevBtn' + viewerNum);
+          const nextBtn = document.getElementById('nextBtn' + viewerNum);
+          
+          if (currentPageEl) currentPageEl.textContent = data.currentPage;
+          if (totalPagesEl) totalPagesEl.textContent = data.totalPages || '--';
+          
+          // 更新按钮状态
+          if (prevBtn) {
+            prevBtn.disabled = data.currentPage <= 1;
+            prevBtn.classList.toggle('disabled', data.currentPage <= 1);
+          }
+          if (nextBtn) {
+            nextBtn.disabled = data.currentPage >= (data.totalPages || 999);
+            nextBtn.classList.toggle('disabled', data.currentPage >= (data.totalPages || 999));
+          }
+        },
+        
+        // 跳转到指定页码 - 增强版本
+        goToPage: function(viewerId, pageNumber) {
+          console.log('goToPage called:', viewerId, pageNumber);
+          const data = this.pdfData[viewerId];
+          if (!data) {
+            console.error('No PDF data found for viewerId:', viewerId);
+            return;
+          }
+          
+          console.log('Current PDF data:', data);
+          
+          // 验证页码范围
+          if (pageNumber < 1) pageNumber = 1;
+          if (data.totalPages && pageNumber > data.totalPages) pageNumber = data.totalPages;
+          
+          console.log('Validated page number:', pageNumber);
+          
+          // 更新当前页码
+          data.currentPage = pageNumber;
+          
+          // 获取PDF查看器元素
+          const viewer = document.getElementById(viewerId);
+          if (!viewer) {
+            console.error('PDF viewer element not found:', viewerId);
+            return;
+          }
+          
+          console.log('PDF viewer element found:', viewer);
+          console.log('Base PDF URL:', data.basePdfUrl);
+          
+          // 构建新的PDF URL
+          const newUrl = data.basePdfUrl + '#page=' + pageNumber + '&toolbar=0&navpanes=0&scrollbar=1';
+          console.log('New PDF URL:', newUrl);
+          
+          // 重新加载PDF
+          viewer.src = '';
+          setTimeout(() => {
+            viewer.src = newUrl + '&t=' + Date.now();
+            console.log('PDF reloaded with URL:', viewer.src);
+            this.updatePageDisplay(viewerId);
+          }, 100);
+        }
+      };
+      
+      // 上一页功能 - 增强版本
+      function previousPage(viewerId) {
+        console.log('previousPage called with viewerId:', viewerId);
+        const data = pdfPageManager.pdfData[viewerId];
+        console.log('PDF data for', viewerId, ':', data);
+        
+        if (data && data.currentPage > 1) {
+          console.log('Going to previous page:', data.currentPage - 1);
+          pdfPageManager.goToPage(viewerId, data.currentPage - 1);
+        } else {
+          console.log('Cannot go to previous page - already at first page or no data');
+        }
+      }
+      
+      // 下一页功能 - 增强版本
+      function nextPage(viewerId) {
+        console.log('nextPage called with viewerId:', viewerId);
+        const data = pdfPageManager.pdfData[viewerId];
+        console.log('PDF data for', viewerId, ':', data);
+        
+        if (data && (!data.totalPages || data.currentPage < data.totalPages)) {
+          console.log('Going to next page:', data.currentPage + 1);
+          pdfPageManager.goToPage(viewerId, data.currentPage + 1);
+        } else {
+          console.log('Cannot go to next page - already at last page or no data');
+        }
+      }
+      
+      // 更新页码显示（兼容原有的jumpToPage函数）
+      function updatePageDisplay(viewerId, pageNumber) {
+        const data = pdfPageManager.pdfData[viewerId];
+        if (data) {
+          data.currentPage = pageNumber;
+          pdfPageManager.updatePageDisplay(viewerId);
+        }
+      }
+      
+      // 页面加载完成后初始化
+      document.addEventListener('DOMContentLoaded', function() {
+        pdfPageManager.init();
+        
+        // 在控制台输出页数设置说明
+        console.log('=== PDF页数设置说明 ===');
+        console.log('如需修改PDF实际页数，请在控制台执行以下命令：');
+        console.log('pdfPageManager.setPdfTotalPages("pdfViewer1", 实际页数); // 设置第一章页数');
+        console.log('pdfPageManager.setPdfTotalPages("pdfViewer2", 实际页数); // 设置第二章页数');
+        console.log('例如：pdfPageManager.setPdfTotalPages("pdfViewer1", 15);');
+        console.log('当前设置：');
+        console.log('- 第一章 (Chap1_1.pdf): ' + pdfPageManager.pdfData['pdfViewer1'].totalPages + ' 页 (实际93页)');
+        console.log('- 第二章 (Chap2_Matrix.pdf): ' + pdfPageManager.pdfData['pdfViewer2'].totalPages + ' 页 (实际100页)');
+      });
+    </script>
+    
+    <!-- 认证系统脚本 -->
+    <script src="auth.js"></script>
+    <script>
+        // 页面加载完成后初始化用户界面
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentUser = authSystem.getCurrentUser();
+            const userInfo = document.getElementById('userInfo');
+            const usernameSpan = document.getElementById('username');
+            
+            if (currentUser && userInfo && usernameSpan) {
+                usernameSpan.textContent = currentUser.username;
+                userInfo.style.display = 'flex';
+            }
+        });
+    </script>
+</body>
+</html>

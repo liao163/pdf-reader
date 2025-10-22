@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户注册 - 学习系统</title>
+    <link rel="stylesheet" href="auth-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1><i class="fas fa-user-plus"></i> 用户注册</h1>
+                <p>创建您的账户，开始学习之旅</p>
+            </div>
+            
+            <form id="registerForm" class="auth-form">
+                <div class="form-group">
+                    <label for="registerUsername">
+                        <i class="fas fa-user"></i>
+                        用户名
+                    </label>
+                    <input type="text" id="registerUsername" name="username" required 
+                           placeholder="请输入用户名（3-20个字符）">
+                    <span class="error-message" id="usernameError"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerEmail">
+                        <i class="fas fa-envelope"></i>
+                        邮箱地址
+                    </label>
+                    <input type="email" id="registerEmail" name="email" required 
+                           placeholder="请输入有效的邮箱地址">
+                    <span class="error-message" id="emailError"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerPassword">
+                        <i class="fas fa-lock"></i>
+                        密码
+                    </label>
+                    <div class="password-input">
+                        <input type="password" id="registerPassword" name="password" required 
+                               placeholder="请输入密码（至少8位）">
+                        <button type="button" class="toggle-password" onclick="togglePassword('registerPassword')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <div class="password-strength">
+                        <div class="strength-bar">
+                            <div class="strength-fill" id="strengthFill"></div>
+                        </div>
+                        <span class="strength-text" id="strengthText">密码强度：弱</span>
+                    </div>
+                    <div class="password-requirements">
+                        <div class="requirement" id="lengthReq">
+                            <i class="fas fa-times"></i> 至少8个字符
+                        </div>
+                        <div class="requirement" id="uppercaseReq">
+                            <i class="fas fa-times"></i> 包含大写字母
+                        </div>
+                        <div class="requirement" id="lowercaseReq">
+                            <i class="fas fa-times"></i> 包含小写字母
+                        </div>
+                        <div class="requirement" id="numberReq">
+                            <i class="fas fa-times"></i> 包含数字
+                        </div>
+                        <div class="requirement" id="specialReq">
+                            <i class="fas fa-times"></i> 包含特殊字符
+                        </div>
+                    </div>
+                    <span class="error-message" id="passwordError"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">
+                        <i class="fas fa-lock"></i>
+                        确认密码
+                    </label>
+                    <div class="password-input">
+                        <input type="password" id="confirmPassword" name="confirmPassword" required 
+                               placeholder="请再次输入密码">
+                        <button type="button" class="toggle-password" onclick="togglePassword('confirmPassword')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <span class="error-message" id="confirmPasswordError"></span>
+                </div>
+                
+                <div class="form-options">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="agreeTerms" required>
+                        <span class="checkmark"></span>
+                        我同意 <a href="#" onclick="showTerms()">用户协议</a> 和 <a href="#" onclick="showPrivacy()">隐私政策</a>
+                    </label>
+                </div>
+                
+                <button type="submit" class="auth-btn primary">
+                    <i class="fas fa-user-plus"></i>
+                    注册账户
+                </button>
+                
+                <div class="auth-switch">
+                    <p>已有账户？ <a href="login.html">立即登录</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <!-- 用户协议模态框 -->
+    <div id="termsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>用户协议</h3>
+                <span class="close" onclick="closeTerms()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>欢迎使用我们的学习系统。使用本系统即表示您同意以下条款：</p>
+                <ul>
+                    <li>您承诺提供真实、准确的个人信息</li>
+                    <li>您同意遵守系统的使用规范</li>
+                    <li>您理解并接受我们的隐私政策</li>
+                    <li>我们保留修改服务条款的权利</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 隐私政策模态框 -->
+    <div id="privacyModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>隐私政策</h3>
+                <span class="close" onclick="closePrivacy()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>我们重视您的隐私保护：</p>
+                <ul>
+                    <li>我们仅收集必要的个人信息</li>
+                    <li>您的密码经过加密存储</li>
+                    <li>我们不会向第三方泄露您的个人信息</li>
+                    <li>您有权随时删除您的账户和数据</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 加载提示 -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+        <p>正在处理中...</p>
+    </div>
+    
+    <script src="auth.js"></script>
+</body>
+</html>

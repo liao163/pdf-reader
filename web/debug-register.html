@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>调试注册页面 - 学习系统</title>
+    <link rel="stylesheet" href="auth-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .debug-info {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            max-width: 300px;
+            z-index: 9999;
+        }
+        .debug-log {
+            max-height: 200px;
+            overflow-y: auto;
+            background: #fff;
+            padding: 5px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <!-- 调试信息面板 -->
+    <div class="debug-info">
+        <strong>调试信息</strong>
+        <div class="debug-log" id="debugLog"></div>
+        <button onclick="clearDebugLog()">清除日志</button>
+    </div>
+
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1><i class="fas fa-user-plus"></i> 用户注册（调试版）</h1>
+                <p>创建您的账户，开始学习之旅</p>
+            </div>
+            
+            <form id="registerForm" class="auth-form">
+                <div class="form-group">
+                    <label for="registerUsername">
+                        <i class="fas fa-user"></i>
+                        用户名
+                    </label>
+                    <input type="text" id="registerUsername" name="username" required 
+                           placeholder="请输入用户名（3-20个字符）">
+                    <span class="error-message" id="usernameError"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerEmail">
+                        <i class="fas fa-envelope"></i>
+                        邮箱地址
+                    </label>
+                    <input type="email" id="registerEmail" name="email" required 
+                           placeholder="请输入有效的邮箱地址">
+                    <span class="error-message" id="emailError"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="registerPassword">
+                        <i class="fas fa-lock"></i>
+                        密码
+                    </label>
+                    <div class="password-input">
+                        <input type="password" id="registerPassword" name="password" required 
+                               placeholder="请输入密码（至少8位）">
+                        <button type="button" class="toggle-password" onclick="togglePassword('registerPassword')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <span class="error-message" id="passwordError"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirmPassword">
+                        <i class="fas fa-lock"></i>
+                        确认密码
+                    </label>
+                    <div class="password-input">
+                        <input type="password" id="confirmPassword" name="confirmPassword" required 
+                               placeholder="请再次输入密码">
+                        <button type="button" class="toggle-password" onclick="togglePassword('confirmPassword')">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <span class="error-message" id="confirmPasswordError"></span>
+                </div>
+                
+                <div class="form-options">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="agreeTerms" required>
+                        <span class="checkmark"></span>
+                        我同意用户协议和隐私政策
+                    </label>
+                </div>
+                
+                <button type="submit" class="auth-btn primary">
+                    <i class="fas fa-user-plus"></i>
+                    立即注册
+                </button>
+            </form>
+            
+            <div class="auth-footer">
+                <p>已有账户？ <a href="login.html">立即登录</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 加载提示 -->
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+        <p>正在处理中...</p>
+    </div>
+
+    <script>
+        // 调试日志函数
+        function debugLog(message) {
+            const log = document.getElementById('debugLog');
+            const time = new Date().toLocaleTimeString();
+            log.innerHTML += `[${time}] ${message}<br>`;
+            log.scrollTop = log.scrollHeight;
+            console.log(`[DEBUG] ${message}`);
+        }
+
+        function clearDebugLog() {
+            document.getElementById('debugLog').innerHTML = '';
+        }
+
+        // 简化的注册系统（用于调试）
+        class DebugAuthSystem {
+            constructor() {
+                debugLog('初始化调试认证系统');
+                this.users = [];
+                try {
+                    this.users = JSON.parse(localStorage.getItem('users') || '[]');
+                    debugLog(`从localStorage加载了 ${this.users.length} 个用户`);
+                } catch (e) {
+                    debugLog(`localStorage错误: ${e.message}`);
+                }
+                this.init();
+            }
+
+            init() {
+                debugLog('绑定事件监听器');
+                const form = document.getElementById('registerForm');
+                if (form) {
+                    form.addEventListener('submit', (e) => this.handleRegister(e));
+                    debugLog('注册表单事件监听器已绑定');
+                } else {
+                    debugLog('错误：找不到注册表单');
+                }
+            }
+
+            async handleRegister(e) {
+                e.preventDefault();
+                debugLog('开始处理注册');
+                
+                const username = document.getElementById('registerUsername').value.trim();
+                const email = document.getElementById('registerEmail').value.trim();
+                const password = document.getElementById('registerPassword').value;
+                const confirmPassword = document.getElementById('confirmPassword').value;
+                const agreeTerms = document.getElementById('agreeTerms').checked;
+
+                debugLog(`用户名: ${username}`);
+                debugLog(`邮箱: ${email}`);
+                debugLog(`密码长度: ${password.length}`);
+                debugLog(`确认密码匹配: ${password === confirmPassword}`);
+                debugLog(`同意条款: ${agreeTerms}`);
+
+                // 简化验证
+                if (!username || username.length < 3) {
+                    debugLog('用户名验证失败');
+                    alert('用户名至少需要3个字符');
+                    return;
+                }
+
+                if (!email || !email.includes('@')) {
+                    debugLog('邮箱验证失败');
+                    alert('请输入有效的邮箱地址');
+                    return;
+                }
+
+                if (!password || password.length < 6) {
+                    debugLog('密码验证失败');
+                    alert('密码至少需要6个字符');
+                    return;
+                }
+
+                if (password !== confirmPassword) {
+                    debugLog('密码确认失败');
+                    alert('两次输入的密码不一致');
+                    return;
+                }
+
+                if (!agreeTerms) {
+                    debugLog('未同意条款');
+                    alert('请同意用户协议和隐私政策');
+                    return;
+                }
+
+                // 检查用户是否已存在
+                const existingUser = this.users.find(u => u.email === email || u.username === username);
+                if (existingUser) {
+                    debugLog('用户已存在');
+                    alert('用户名或邮箱已被注册');
+                    return;
+                }
+
+                // 创建新用户
+                const newUser = {
+                    id: Date.now().toString(),
+                    username,
+                    email,
+                    password: password, // 简化版本不加密
+                    createdAt: new Date().toISOString()
+                };
+
+                try {
+                    this.users.push(newUser);
+                    localStorage.setItem('users', JSON.stringify(this.users));
+                    debugLog('用户注册成功');
+                    alert('注册成功！');
+                    
+                    // 跳转到登录页
+                    setTimeout(() => {
+                        window.location.href = 'login.html';
+                    }, 1000);
+                } catch (e) {
+                    debugLog(`保存用户数据失败: ${e.message}`);
+                    alert('注册失败，请稍后重试');
+                }
+            }
+        }
+
+        // 密码显示切换函数
+        function togglePassword(inputId) {
+            debugLog(`切换密码显示: ${inputId}`);
+            const input = document.getElementById(inputId);
+            const button = input.nextElementSibling;
+            const icon = button.querySelector('i');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // 初始化系统
+        debugLog('页面加载完成，初始化系统');
+        const debugAuth = new DebugAuthSystem();
+    </script>
+</body>
+</html>
